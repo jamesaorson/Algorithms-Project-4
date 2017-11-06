@@ -40,10 +40,7 @@ public class GameBoard {
             ++availableMoves;
         }
 
-        if (moveDistance > availableMoves) {
-            return false;
-        }
-        return true;
+        return moveDistance <= availableMoves;
     }
     
     public boolean canMoveLeft(Vehicle vehicle, int moveDistance) {
@@ -61,10 +58,7 @@ public class GameBoard {
             ++availableMoves;
         }
         
-        if (moveDistance > availableMoves) {
-            return false;
-        }
-        return true;
+        return moveDistance <= availableMoves;
     }
 
     public boolean canMoveUp(Vehicle vehicle, int moveDistance) {
@@ -81,11 +75,8 @@ public class GameBoard {
 
             ++availableMoves;
         }
-
-        if (moveDistance > availableMoves) {
-            return false;
-        }
-        return true;
+        
+        return moveDistance <= availableMoves;
     }
 
     public boolean canMoveDown(Vehicle vehicle, int moveDistance) {
@@ -105,10 +96,7 @@ public class GameBoard {
             ++availableMoves;
         }
         
-        if (moveDistance > availableMoves) {
-            return false;
-        }
-        return true;
+        return moveDistance <= availableMoves;
     }
     
     public void moveRight(Vehicle vehicle, int moveDistance) {

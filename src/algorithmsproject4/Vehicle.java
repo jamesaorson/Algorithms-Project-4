@@ -58,6 +58,11 @@ public class Vehicle {
     }
     
     private String makeBlockString() {
-        return this.coord.getX() + "," + this.coord.getY() + "," + this.width + "," + this.height + "," + this.color + "," + this.orientation;
+        return this.color + ","
+                + this.height + ","
+                + this.width + ","
+                + this.coord.getX() + ","
+                + this.coord.getY() + ","
+                + this.orientation;
     }
 }
