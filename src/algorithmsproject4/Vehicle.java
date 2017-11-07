@@ -1,6 +1,20 @@
 package algorithmsproject4;
 
-public class Vehicle {
+/**
+* Vehicle class is a template for vehicle objects, which are then used to fill
+* the board
+*
+* @author Nate Stahlnecker & James Osborne
+* @version 1.0
+* File: Vehicle.java
+* Created: Nov 2017
+* ©Copyright Cedarville University, its Computer Science faculty, and the
+* authors. All rights reserved.
+* Summary of Modifications:
+*
+*/
+
+public final class Vehicle {
     private final String color;
     private final int height;
     private final int width;
@@ -14,7 +28,7 @@ public class Vehicle {
         this.width = w;
         this.color  = col;
         this.orientation = o;
-        this.blockString = getBlockString();
+        this.blockString = getVehicleString();
     }
 
     public String getColor() {
@@ -41,23 +55,24 @@ public class Vehicle {
         return this.orientation;
     }
     
-    public String getBlockString() {
-        this.blockString = makeBlockString();
+    public String getVehicleString() {
+        this.blockString = makeVehicleString();
         
         return this.blockString;
     } 
 
     public void setX(int xLoc) {
         this.coord.setX(xLoc);
-        this.blockString = getBlockString();
+        this.blockString = getVehicleString();
     }
     
     public void setY(int yLoc) {
         this.coord.setY(yLoc);
-        this.blockString = getBlockString();
+        this.blockString = getVehicleString ();
     }
     
-    private String makeBlockString() {
+    /*A string that represents all of the fields of a Vehicle*/
+    private String makeVehicleString() {
         return this.color + ","
                 + this.height + ","
                 + this.width + ","

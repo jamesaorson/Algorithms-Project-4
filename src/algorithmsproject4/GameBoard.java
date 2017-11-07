@@ -1,5 +1,19 @@
 package algorithmsproject4;
 
+/**
+* GameBoard class is a template for GameBoard objects
+* It performs all the movement operations on vehicles
+*
+* @author Nate Stahlnecker & James Osborne
+* @version 1.0
+* File: GameBoard.java
+* Created: Nov 2017
+* ©Copyright Cedarville University, its Computer Science faculty, and the
+* authors. All rights reserved.
+* Summary of Modifications:
+*
+*/
+
 import java.util.ArrayList;
 
 public class GameBoard {
@@ -25,9 +39,11 @@ public class GameBoard {
         placeVehicle(vehicle);
     }
     
-    public boolean canMoveRight(Vehicle vehicle,int moveDistance) {
+    public boolean canMoveRight(Vehicle vehicle, int moveDistance) {
         if (vehicle.getOrientation().equals("v") 
-                || vehicle.getX() + vehicle.getWidth() - 1  + moveDistance >= this.getBoardWidth()) {
+                || vehicle.getX()
+                 + vehicle.getWidth() - 1
+                 + moveDistance >= this.getBoardWidth()) {
             return false;
         }
         
@@ -81,8 +97,9 @@ public class GameBoard {
 
     public boolean canMoveDown(Vehicle vehicle, int moveDistance) {
         if (vehicle.getOrientation().equals("h") 
-                || (vehicle.getY() + vehicle.getHeight() - 1 + moveDistance)
-                    >= getBoardHeight()) {
+                || vehicle.getY()
+                  + vehicle.getHeight() - 1
+                  + moveDistance >= getBoardHeight()) {
             return false;
         }
 
@@ -169,11 +186,12 @@ public class GameBoard {
         return this.boardHeight;
     }
 
+    /*Collects vehicle strings into one larger string*/
     public String makeBoardString() {
         String boardString = "";
 
         for (int i = 0; i < vehicles.size(); i++) {
-            boardString += vehicles.get(i).getBlockString() + ";";
+            boardString += vehicles.get(i).getVehicleString() + ";";
         }
 
         return boardString;

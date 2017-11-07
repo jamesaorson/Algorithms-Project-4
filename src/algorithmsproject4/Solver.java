@@ -1,5 +1,18 @@
 package algorithmsproject4;
 
+/**
+* Solver class performs breadth first search on the gameboard
+*
+* @author Nate Stahlnecker & James Osborne
+* @version 1.0
+* File: Solver.java
+* Created: Nov 2017
+* ©Copyright Cedarville University, its Computer Science faculty, and the
+* authors. All rights reserved.
+* Summary of Modifications:
+*
+*/
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -12,7 +25,7 @@ public class Solver {
     public String gameBoardfile;
     public GameBoard gameBoard;
     private final Queue<String> queue;
-    private final HashMap<String, String> history;
+    private final HashMap<String, String> records;
     private final HashMap<String, String> visitedBoards;
     private final ArrayList<String> solution;
 
@@ -20,7 +33,7 @@ public class Solver {
         this.gameBoardfile = file;
         this.gameBoard = parseInputFile(file);
         this.queue = new LinkedList<String>();
-        this.history = new HashMap<String, String>();
+        this.records = new HashMap<String, String>();
         this.visitedBoards = new HashMap<String, String>();
         this.solution = new ArrayList<String>();
     }
@@ -92,7 +105,7 @@ public class Solver {
                         } else {
                             moveExists = false;
                         }
-                    } else {
+                    } else { //if vertical
                         if (currBoard.canMoveUp(currVehicle, moveDistance)) {
                             performUpMove(
                                     currBoard, 
@@ -141,7 +154,7 @@ public class Solver {
             backtrack(
                     this.solution, 
                     this.visitedBoards, 
-                    this.history, 
+                    this.records, 
                     nextState);
             printSolution();
 
@@ -199,17 +212,24 @@ public class Solver {
         currBoard.moveUp(currVehicle, moveDistance);
     }
 
-    public void addVisits(String curr, String next, String color,
-            String direction, int moveDistance) {
+    public void addVisits(
+            String curr, 
+            String next, 
+            String color,
+            String direction, 
+            int moveDistance) {
         //Only insert next visit if the visit has not been visited before
         if (!this.visitedBoards.containsKey(next)) {
             this.visitedBoards.put(next, curr);
             
-            //Place movement string into history for printing
-            this.history.put(next, color + "\t"
-                    + moveDistance + "\t" + direction);
+            //Place movement string into records for printing
+            this.records.put(
+                    next, 
+                    color + "\t"
+                    + moveDistance + "\t"
+                    + direction);
             
-            //Add next munique move to the queue
+            //Add next unique move to the queue
             this.queue.add(next);
         }
     }
@@ -250,17 +270,18 @@ public class Solver {
         }
     }
 
+    /*Recursively create the solution string arrayList*/
     private void backtrack(
-            ArrayList<String> solution, 
-            HashMap<String, 
+            ArrayList<String> solution,
+            HashMap<String,
             String> visits,
-            HashMap<String, String> history, 
+            HashMap<String, String> records, 
             String next) {
         String parent = visits.get(next);
         
         if (parent != null) {
-            backtrack(solution, visits, history, parent);
-            solution.add(history.get(next));
+            backtrack(solution, visits, records, parent);
+            solution.add(records.get(next));
         }
     }
     
