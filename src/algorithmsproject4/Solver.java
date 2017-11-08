@@ -78,9 +78,12 @@ public class Solver {
                 Vehicle currVehicle = currVehicles.get(i);
                 String color = currVehicle.getColor();
                 int moveDistance = 1;
-                boolean moveExists = true;
+                //Tracks if a move exists in right or up direction
+                boolean rightOrUpMoveExists = true;
+                //Tracks if a move exists in left or down direction
+                boolean leftOrDownMoveExists = true;
 
-                while (moveExists) {
+                while (rightOrUpMoveExists || leftOrDownMoveExists) {
                     if (currVehicle.getOrientation().equals("h")) {
                         if (currBoard.canMoveRight(currVehicle, moveDistance)) {
                             //Only a right move will solve the problem
@@ -93,7 +96,10 @@ public class Solver {
                                 //Maze is solvable
                                 return true;
                             }
-                        } else if (currBoard.canMoveLeft(
+                        } else {
+                            rightOrUpMoveExists = false;
+                        }
+                        if (currBoard.canMoveLeft(
                                 currVehicle, 
                                 moveDistance)) {
                             performLeftMove(
@@ -102,8 +108,8 @@ public class Solver {
                                     currVehicle, 
                                     color, 
                                     moveDistance);
-                        } else {
-                            moveExists = false;
+                        }  else {
+                            leftOrDownMoveExists = false;
                         }
                     } else { //if vertical
                         if (currBoard.canMoveUp(currVehicle, moveDistance)) {
@@ -113,7 +119,10 @@ public class Solver {
                                     currVehicle, 
                                     color, 
                                     moveDistance);
-                        } else if (currBoard.canMoveDown(
+                        } else {
+                            rightOrUpMoveExists = false;
+                        }
+                        if (currBoard.canMoveDown(
                                 currVehicle, 
                                 moveDistance)) {
                             performDownMove(
@@ -123,7 +132,7 @@ public class Solver {
                                     color, 
                                     moveDistance);
                         } else {
-                            moveExists = false;
+                            leftOrDownMoveExists = false;
                         }
                     }
 
@@ -286,6 +295,7 @@ public class Solver {
     }
     
     public void printSolution() {
+        System.out.println(this.solution.size() + " moves");
         for (int i = 0; i < this.solution.size(); ++i) {
             System.out.println(this.solution.get(i));
         }
